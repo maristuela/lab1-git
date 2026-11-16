@@ -30,4 +30,4 @@ jobs:
           path: ./
           base: ""
           head: HEAD
-          extra_args: --results=verified,unknown,unverified --fail
+          extra_args: --results=verified,unknown,unverified --fail --since-commit HEAD~1

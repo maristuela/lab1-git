@@ -1,3 +1,1 @@
-aws_access_key_id = "AKIAIOSFODNN7EXAMPLE"
-
-
+github_token = "ghp_1234567890abcdefghijklmnopqrstuvwxyz"

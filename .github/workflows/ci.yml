@@ -20,10 +20,8 @@ jobs:
 
       - name: Run syntax check
         run: python -m py_compile calculator.py stats.py main.py report.py
-
       - name: Run tests (если есть)
         run: echo "CI passed"
-
       - name: TruffleHog Secret Scan
         uses: trufflesecurity/trufflehog@main
         with:

@@ -25,9 +25,9 @@ jobs:
         run: echo "CI passed"
 
       - name: TruffleHog Secret Scan
-        uses: trufflesecurity/trufflehog@main
+        uses: trufflesecurity/trufflehog@v3.63.2
         with:
           path: ./
           base: ""
           head: HEAD
-          extra_args: --results=verified,unknown,unverified --exclude-paths=.git
+          extra_args: --results=verified,unknown,unverified

@@ -24,13 +24,10 @@ jobs:
       - name: Run tests (если есть)
         run: echo "CI passed"
 
-      - name: Custom Secret Scan
-        run: |
-          echo "Сканируем файлы на наличие секретов..."
-          # Ищем паттерны токенов GitHub и ключей AWS
-          if grep -rE "ghp_[a-zA-Z0-9]{36}|AKIA[0-9A-Z]{16}" --exclude-dir=.git . ; then
-            echo "ОШИБКА: Найден секрет!"
-            exit 1
-          else
-            echo "Секретов не найдено. Всё чисто."
-          fi
+      - name: TruffleHog Secret Scan
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ""
+          head: HEAD
+          extra_args: --results=verified,unknown,unverified --exclude-paths=.git

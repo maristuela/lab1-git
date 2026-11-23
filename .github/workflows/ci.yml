@@ -12,7 +12,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Обязательно для TruffleHog, чтобы видеть историю
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -20,17 +20,14 @@ jobs:
           python-version: '3.11'
 
       - name: Run syntax check
-        # Если файлов нет, шаг упадет. Лучше убедиться, что они есть.
         run: python -m py_compile calculator.py stats.py main.py report.py
       
       - name: Run tests (если есть)
         run: echo "CI passed"
 
+      # Единственный правильный вариант шага для TruffleHog
       - name: TruffleHog Secret Scan
-        uses: trufflesecurity/trufflehog@main
-        with:
-          path: ./
-          # Сканируем только текущее состояние файлов, без Git-истории
-          base: "" 
-          head: ""
-          extra_args: --results=verified,unknown,unverified --no-update --debug
+        run: |
+          docker run --rm -v "${{ github.workspace }}:/pwd" \
+            trufflesecurity/trufflehog:latest filesystem /pwd \
+            --results=verified,unknown,unverified

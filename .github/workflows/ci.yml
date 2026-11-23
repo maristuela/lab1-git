@@ -30,7 +30,4 @@ jobs:
         uses: trufflesecurity/trufflehog@main # Используем main для актуальности
         with:
           path: ./
-          # Сравниваем текущую ветку с веткой по умолчанию (main)
-          base: ${{ github.event.repository.default_branch }}
-          head: HEAD
           extra_args: --results=verified,unknown,unverified --debug
